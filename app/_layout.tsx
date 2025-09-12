@@ -18,6 +18,8 @@ function RootLayoutNav() {
       <Stack.Screen name="scan-result" options={{ presentation: "modal" }} />
       <Stack.Screen name="scans" />
       <Stack.Screen name="test/[testType]" options={{ presentation: "modal" }} />
+      <Stack.Screen name="education" />
+      <Stack.Screen name="education-reader" options={{ presentation: "modal" }} />
       <Stack.Screen name="exercise/[exerciseType]" options={{ presentation: "modal" }} />
       <Stack.Screen name="exercise/run" options={{ presentation: "modal" }} />
       <Stack.Screen name="test/run" options={{ presentation: "modal" }} />

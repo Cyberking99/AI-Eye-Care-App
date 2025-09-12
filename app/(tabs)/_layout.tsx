@@ -2,6 +2,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { Redirect, Tabs } from "expo-router";
 import { Activity, Dumbbell, Eye, MessageCircle, TrendingUp, User } from "lucide-react-native";
 import React from "react";
+import { Platform } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function TabLayout() {
@@ -10,6 +11,8 @@ export default function TabLayout() {
 
   if (isLoading) return null;
   if (!isAuthenticated) return <Redirect href="/(auth)/login" />;
+
+  const bottomPadding = Math.max(insets.bottom, Platform.OS === 'ios' ? 20 : 10);
 
   return (
     <Tabs
@@ -21,13 +24,22 @@ export default function TabLayout() {
           backgroundColor: "#FFFFFF",
           borderTopWidth: 1,
           borderTopColor: "#E5E5EA",
-          paddingTop: 5,
-          paddingBottom: Math.max(8, insets.bottom),
+          paddingTop: 8,
+          paddingBottom: bottomPadding,
+          height: 60 + bottomPadding, // Ensure sufficient height
+          position: 'absolute', // Ensure it stays at bottom
+          bottom: 0,
+          left: 0,
+          right: 0,
         },
         tabBarLabelStyle: {
           fontSize: 12,
           fontWeight: "600",
-          marginTop: 1,
+          marginTop: 2,
+          marginBottom: 2,
+        },
+        tabBarIconStyle: {
+          marginTop: 2,
         },
       }}
     >

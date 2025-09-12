@@ -55,8 +55,16 @@ export default function DashboardScreen() {
       title: "Progress",
       subtitle: "Track improvements",
       icon: TrendingUp,
-      color: "#F1FAEE",
+      color: "#4CAF50",
       onPress: () => router.push("/progress"),
+    },
+    {
+      id: "education",
+      title: "Education",
+      subtitle: "Learn about eye health",
+      icon: BookOpen,
+      color: "#F4A261",
+      onPress: () => router.push("/education"),
     },
   ];
 
@@ -146,6 +154,7 @@ export default function DashboardScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    marginBottom: 100,
   },
   header: {
     padding: 24,

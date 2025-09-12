@@ -16,6 +16,9 @@ export interface ExerciseSession {
   id: string;
   exerciseId: string;
   userId: string;
+  exercise: {
+    title: string;
+  }
   completedAt: string;
   duration: number; // actual duration in minutes
   score?: number;

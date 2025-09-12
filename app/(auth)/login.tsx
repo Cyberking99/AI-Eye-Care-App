@@ -32,6 +32,7 @@ export default function LoginScreen() {
       <Text style={styles.title}>Welcome back</Text>
       <TextInput
         placeholder="Email"
+        placeholderTextColor="#666"
         autoCapitalize="none"
         keyboardType="email-address"
         value={email}
@@ -40,6 +41,7 @@ export default function LoginScreen() {
       />
       <TextInput
         placeholder="Password"
+        placeholderTextColor="#666"
         secureTextEntry
         value={password}
         onChangeText={setPassword}
@@ -66,6 +68,7 @@ const styles = StyleSheet.create({
     padding: 14,
     marginBottom: 12,
     backgroundColor: "#fff",
+    color: "#1A1A1A",
   },
   button: {
     backgroundColor: "#2E86AB",

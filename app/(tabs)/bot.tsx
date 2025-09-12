@@ -144,6 +144,7 @@ export default function BotScreen() {
           <TextInput
             style={styles.textInput}
             placeholder="Ask about tests, exercises, or scans..."
+            placeholderTextColor={"#666"}
             value={input}
             onChangeText={setInput}
             editable={!sending}
@@ -166,6 +167,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
+    marginBottom: 100,
   },
   loadingContainer: {
     flex: 1,
@@ -193,6 +195,7 @@ const styles = StyleSheet.create({
     marginRight: 8,
     minHeight: 44,
     maxHeight: 100,
+    color: "#1A1A1A",
   },
   sendButton: {
     backgroundColor: "#2E86AB",

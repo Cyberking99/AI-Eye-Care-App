@@ -12,6 +12,7 @@ export interface EyeTest {
 
 export interface TestResult {
   id: string;
+  name: string;
   testId: string;
   userId: string;
   score: number;
@@ -23,7 +24,11 @@ export interface TestResult {
     timeTaken: number;
     [key: string]: any;
   };
-  completedAt: string;
+  template: {
+    name: string;
+  };
+  createdAt: string;
+  completedAt?: string;
   recommendations?: string[];
 }
 

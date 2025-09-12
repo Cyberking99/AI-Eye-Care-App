@@ -1,7 +1,7 @@
 import { useExerciseProgress, useProfile, useTestProgress, useUpdateProfile } from "@/hooks/useApi";
 import { useAuth } from "@/hooks/useAuth";
 import { router } from "expo-router";
-import { Camera, Dumbbell, Edit3, History, LogOut, Settings, User } from "lucide-react-native";
+import { BookOpen, Camera, Dumbbell, Edit3, History, LogOut, User } from "lucide-react-native";
 import React, { useState } from "react";
 import {
   Alert,
@@ -82,10 +82,10 @@ export default function ProfileScreen() {
       onPress: () => setIsEditing(true),
     },
     {
-      id: "settings",
-      title: "Settings",
-      icon: Settings,
-      onPress: () => {},
+      id: "education",
+      title: "Educational Resources",
+      icon: BookOpen,
+      onPress: () => router.push("/education"),
     },
     {
       id: "history",
@@ -228,6 +228,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#F8F9FA",
+    marginBottom: 100,
   },
   header: {
     backgroundColor: "#FFFFFF",

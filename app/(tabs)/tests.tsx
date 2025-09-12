@@ -172,12 +172,17 @@ export default function TestsScreen() {
         {testHistory && testHistory.length > 0 && (
           <View style={styles.historyCard}>
             <Text style={styles.historyTitle}>Recent Results</Text>
+            <View style={styles.row}>
+              <Text style={styles.listTitleHeader}>Name</Text>
+              <Text style={styles.listMetaHeader}>Date</Text>
+              <Text style={styles.listBadgeHeader}>Score</Text>
+            </View>
             {testHistory.slice(0, 3).map((result) => (
               <View key={result.id} style={styles.historyItem}>
-                <Text style={styles.historyTestName}>{result.testId}</Text>
-                <Text style={styles.historyScore}>{result.percentage}%</Text>
+                <Text style={styles.historyTestName}>{result.template.name}</Text>
+                <Text style={styles.historyScore}>{result.score}%</Text>
                 <Text style={styles.historyDate}>
-                  {new Date(result.completedAt).toLocaleDateString()}
+                  {new Date(result.createdAt).toLocaleDateString()}
                 </Text>
               </View>
             ))}
@@ -203,6 +208,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#FFFFFF",
+    marginBottom: 100,
   },
   loadingContainer: {
     flex: 1,
@@ -380,4 +386,8 @@ const styles = StyleSheet.create({
     color: "#666666",
     lineHeight: 20,
   },
+  row: { flexDirection: "row", justifyContent: "space-between", marginBottom: 8 },
+  listTitleHeader: { fontSize: 14, color: "#1A1A1A", flex: 1, fontWeight: "bold" },
+  listMetaHeader: { fontSize: 14, color: "#1A1A1A", marginHorizontal: 12, fontWeight: "bold" },
+  listBadgeHeader: { fontSize: 14, color: "#1A1A1A", fontWeight: "bold" },
 });

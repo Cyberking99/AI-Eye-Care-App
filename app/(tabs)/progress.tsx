@@ -56,9 +56,14 @@ export default function ProgressScreen() {
           </View>
 
           <Text style={styles.sectionTitle}>Recent Sessions</Text>
+          <View style={styles.row}>
+            <Text style={styles.listTitleHeader}>Title</Text>
+            <Text style={styles.listMetaHeader}>Date</Text>
+            <Text style={styles.listBadgeHeader}>Score</Text>
+          </View>
           {(exerciseHistory ?? []).slice(0, 5).map((s) => (
             <View key={s.id} style={styles.listItem}>
-              <Text style={styles.listTitle}>{s.exerciseId}</Text>
+              <Text style={styles.listTitle}>{s.exercise.title}</Text>
               <Text style={styles.listMeta}>{new Date(s.completedAt).toLocaleDateString()}</Text>
               {s.score != null && <Text style={styles.listBadge}>{s.score}</Text>}
             </View>
@@ -83,11 +88,16 @@ export default function ProgressScreen() {
           </View>
 
           <Text style={styles.sectionTitle}>Recent Results</Text>
+          <View style={styles.row}>
+            <Text style={styles.listTitleHeader}>Name</Text>
+            <Text style={styles.listMetaHeader}>Date</Text>
+            <Text style={styles.listBadgeHeader}>Score</Text>
+          </View>
           {(testHistory ?? []).slice(0, 5).map((t) => (
             <View key={t.id} style={styles.listItem}>
-              <Text style={styles.listTitle}>{t.testId}</Text>
-              <Text style={styles.listMeta}>{new Date(t.completedAt).toLocaleDateString()}</Text>
-              <Text style={styles.listBadge}>{Math.round(t.percentage)}%</Text>
+              <Text style={styles.listTitle}>{t.template.name}</Text>
+              <Text style={styles.listMeta}>{new Date(t.createdAt).toLocaleDateString()}</Text>
+              <Text style={styles.listBadge}>{Math.round(t.score)}</Text>
             </View>
           ))}
         </View>
@@ -97,7 +107,7 @@ export default function ProgressScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "#F8F9FA" },
+  container: { flex: 1, backgroundColor: "#F8F9FA", marginBottom: 100 },
   center: { flex: 1, alignItems: "center", justifyContent: "center" },
   loadingText: { marginTop: 12, color: "#666" },
   content: { padding: 16, paddingBottom: 32 },
@@ -111,6 +121,9 @@ const styles = StyleSheet.create({
   sectionTitle: { marginTop: 8, marginBottom: 8, fontSize: 14, fontWeight: "600", color: "#333" },
   listItem: { flexDirection: "row", alignItems: "center", justifyContent: "space-between", paddingVertical: 10, borderBottomWidth: 1, borderBottomColor: "#F0F0F0" },
   listTitle: { fontSize: 14, color: "#1A1A1A", flex: 1 },
-  listMeta: { fontSize: 12, color: "#666", marginHorizontal: 8 },
+  listTitleHeader: { fontSize: 14, color: "#1A1A1A", flex: 1, fontWeight: "bold" },
+  listMeta: { fontSize: 12, color: "#666", marginHorizontal: 12 },
+  listMetaHeader: { fontSize: 14, color: "#1A1A1A", marginHorizontal: 12, fontWeight: "bold" },
   listBadge: { fontSize: 12, color: "#2E86AB", fontWeight: "700" },
+  listBadgeHeader: { fontSize: 14, color: "#1A1A1A", fontWeight: "bold" },
 });
