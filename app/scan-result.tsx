@@ -3,6 +3,7 @@ import { Stack, router, useLocalSearchParams } from "expo-router";
 import { AlertTriangle, ArrowRight, CheckCircle, Info } from "lucide-react-native";
 import React, { useEffect, useMemo, useState } from "react";
 import {
+  Image,
   RefreshControl,
   ScrollView,
   StyleSheet,
@@ -13,7 +14,7 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function ScanResultsScreen() {
-  const { scanId, analysis: analysisParam, findings: findingsParam } = useLocalSearchParams<{ scanId?: string; analysis?: string; findings?: string }>();
+  const { scanId, analysis: analysisParam, findings: findingsParam, urlParam: urlParam } = useLocalSearchParams<{ scanId?: string; analysis?: string; findings?: string; urlParam?: string }>();
   const [scan, setScan] = useState<any | null>(null);
   const [loading, setLoading] = useState<boolean>(!!scanId);
   const [refreshing, setRefreshing] = useState(false);
@@ -23,6 +24,7 @@ export default function ScanResultsScreen() {
     try {
       setLoading(true);
       const s = await scansService.getScan(scanId);
+      console.log("Loaded scan:", s);
       setScan(s);
     } catch {}
     finally { setLoading(false); }
@@ -124,12 +126,19 @@ export default function ScanResultsScreen() {
     <SafeAreaView style={styles.container}>
       <Stack.Screen options={{ title: "Scan Results", headerShown: true }} />
       <ScrollView style={styles.content} showsVerticalScrollIndicator={false} refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} tintColor="#2E86AB" colors={["#2E86AB"]} />}>
+        
         <View style={styles.statusCard}>
           <CheckCircle color="#4CAF50" size={32} />
           <Text style={styles.statusTitle}>Overall Eye Health</Text>
           <Text style={styles.statusValue}>{findings.length === 0 ? "Good" : "Review Findings"}</Text>
           <Text style={styles.statusDescription}>Based on AI analysis of your eye image</Text>
         </View>
+
+        {scan?.url && (
+          <View style={styles.imageContainer}>
+            <Image source={{ uri: scan.url }} style={styles.scanImage} />
+          </View>
+        )}
 
         {findings.length > 0 && (
           <View style={styles.section}>
@@ -194,6 +203,18 @@ export default function ScanResultsScreen() {
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: "#F8F9FA" },
   content: { flex: 1, padding: 24 },
+  imageContainer: {
+    marginBottom: 24,
+    borderRadius: 16,
+    overflow: 'hidden',
+    backgroundColor: '#E5E5EA',
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 8,
+    elevation: 3,
+  },
+  scanImage: { width: '100%', height: 250, resizeMode: 'cover' },
   statusCard: { backgroundColor: "#FFFFFF", borderRadius: 16, padding: 24, alignItems: "center", marginBottom: 24, shadowColor: "#000", shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.1, shadowRadius: 8, elevation: 3 },
   statusTitle: { fontSize: 16, color: "#666666", marginTop: 12, marginBottom: 4 },
   statusValue: { fontSize: 24, fontWeight: "bold", color: "#1A1A1A", marginBottom: 8 },
@@ -216,7 +237,7 @@ const styles = StyleSheet.create({
   primaryButtonText: { color: "#FFFFFF", fontSize: 16, fontWeight: "600", marginRight: 8 },
   secondaryButton: { backgroundColor: "#FFFFFF", borderRadius: 12, padding: 16, alignItems: "center", borderWidth: 1, borderColor: "#E5E5EA" },
   secondaryButtonText: { color: "#2E86AB", fontSize: 16, fontWeight: "600" },
-  disclaimer: { backgroundColor: "#FFF3E0", borderRadius: 12, padding: 16, marginBottom: 24 },
+  disclaimer: { backgroundColor: "#FFF3E0", borderRadius: 12, padding: 16, marginBottom: 32 },
   disclaimerText: { fontSize: 12, color: "#666666", lineHeight: 18 },
   disclaimerBold: { fontWeight: "600", color: "#1A1A1A" },
 });

@@ -2,6 +2,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import {
   authService,
   chatService,
+  educationService,
   exercisesService,
   scansService,
   SendMessageRequest,
@@ -19,6 +20,7 @@ export const queryKeys = {
   testProgress: ['testProgress'] as const,
   scans: (userId: string) => ['scans', userId] as const,
   chatHistory: ['chatHistory'] as const,
+  education: ['education'] as const,
 };
 
 // Auth Hooks
@@ -130,6 +132,15 @@ export const useSubmitTest = () => {
       queryClient.invalidateQueries({ queryKey: queryKeys.testHistory });
       queryClient.invalidateQueries({ queryKey: queryKeys.testProgress });
     },
+  });
+};
+
+// Education Hooks
+export const useEducationResources = () => {
+  return useQuery({
+    queryKey: queryKeys.education,
+    queryFn: educationService.getResources,
+    staleTime: 10 * 60 * 1000, // 10 minutes
   });
 };
 

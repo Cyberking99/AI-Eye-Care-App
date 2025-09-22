@@ -29,7 +29,7 @@ export default function ScanScreen() {
     try {
       const scan = await uploadScanMutation.mutateAsync(imageUri);
       console.log(scan);
-      router.push({ pathname: "/scan-result", params: { scanId: scan.id, analysis: scan.aiSummary || '' } });
+      router.push({ pathname: "/scan-result", params: { scanId: scan.id, analysis: scan.aiSummary, url: scan.url || '' } });
     } catch (error) {
       console.error("Analysis error:", error);
       Alert.alert("Error", "Failed to analyze image. Please try again.");
